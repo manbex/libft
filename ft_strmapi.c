@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenicho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 11:38:02 by mbenicho          #+#    #+#             */
-/*   Updated: 2022/05/07 11:38:07 by mbenicho         ###   ########.fr       */
+/*   Created: 2022/05/07 12:14:14 by mbenicho          #+#    #+#             */
+/*   Updated: 2022/05/07 12:14:16 by mbenicho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	write(fd, &c, 1);
+	unsigned int	i;
+	char			*str;
+
+	if (!s)
+		return (ft_strdup(""));
+	if (!f)
+		return (ft_strdup(s));
+	str = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!str)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = (*f)(i, str[i]);
+		i++;
+	}
+	str[i] = 0;
+	return (str);
 }
