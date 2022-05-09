@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	ft_ischar(char c, char *set)
+static int	ft_ischar(char c, char const *set)
 {
 	int	i;
 
@@ -26,21 +26,26 @@ static int	ft_ischar(char c, char *set)
 	return (0);
 }
 
+#include <stdio.h>
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*str;
 	int		i;
 	int		j;
+	int		size;
 
 	i = 0;
 	j = ft_strlen(s1) - 1;
-	while (ft_ischar(s1[i], (char *)set))
-		i++;
-	while (ft_ischar(s1[j], (char *)set) && j >= 0)
+	while (ft_ischar(s1[i], set) && s1[i])
+		i++;	
+	while (ft_ischar(s1[j], set) && j > 0)
 		j--;
-	str = malloc((j - i + 1) * sizeof(char));
+	size = j - i + 1;
+	if (size < 0)
+		size = 0;
+	str = malloc((size + 1) * sizeof(char));
 	if (str == 0)
 		return (0);
-	ft_strlcpy(str, s1 + i, j - i + 2);
+	ft_strlcpy(str, s1 + i, size + 1);
 	return (str);
 }
