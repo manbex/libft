@@ -8,22 +8,30 @@ SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c \
 	ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 
-OBJ = ${SRC:.c=.o}
+BONUS = 
+
+OBJ = $(SRC:.c=.o)
+
+BONUS_OBJ = $(BONUS:.c=.o)
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
 
 $(NAME): $(OBJ)
 	ar rcs $@ ${OBJ}
 
-.c.o:
-	gcc -c -Wall -Wextra -Werror $(SRC)
-
 all: $(NAME)
 
 clean:
-	rm -f *.o
+	$(RM) $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
-re: fclean all
+re: fclean $(NAME)
 
-.PHONY: all clean fclean re
+bonus : $(BONUS_OBJ)
+	ar rcs $(NAME) $(BONUS_OBJ)
+
+.PHONY: all clean fclean re bonus
