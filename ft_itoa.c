@@ -32,50 +32,63 @@ static char	*ft_rev(char *str, int size)
 	return (str);
 }
 
-static char	*ft_strdupcat(char *src, char c)
+size_t	ft_count(int n)
 {
-	char	*dest;
-	int		size;
-	int		i;
+	size_t	size;
 
-	size = ft_strlen(src) + 1;
-	dest = malloc((size + 1) * sizeof(char));
-	i = 0;
-	while (src[i])
+	size = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
 	{
-		dest[i] = src[i];
-		i++;
+		size++;
+		n *= -1;
 	}
-	dest[i] = c;
-	dest[size] = 0;
-	free(src);
-	return (dest);
+	while (n != 0)
+	{
+		n /= 10;
+		size++;
+	}
+	return (size);
 }
 
-char	*ft_itoa(int n)
+static char	*ft_convert(char *str, int n)
 {
 	int			i;
 	long int	nb;
-	char		*str;
 
-	str = malloc(1);
-	if (str == 0)
-		return (0);
-	str[0] = 0;
-	i = 0;
 	nb = n;
+	i = 0;
 	if (n == 0)
-		str = ft_strdupcat(str, '0');
+	{
+		str[i] = '0';
+		i++;
+	}
 	if (n < 0)
 		nb *= -1;
 	while (nb != 0)
 	{
-		str = ft_strdupcat(str, (nb % 10) + '0');
+		str[i] = (nb % 10) + '0';
 		nb /= 10;
 		i++;
 	}
 	if (n < 0)
-		str = ft_strdupcat(str, '-');
+	{
+		str[i] = '-';
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}
+
+char	*ft_itoa(int n)
+{
+	char		*str;
+
+	str = malloc((ft_count(n) + 1) * sizeof(char));
+	if (!str)
+		return (0);
+	ft_convert(str, n);
 	str = ft_rev(str, ft_strlen(str));
 	return (str);
 }

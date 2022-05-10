@@ -26,7 +26,6 @@ static int	ft_ischar(char c, char const *set)
 	return (0);
 }
 
-#include <stdio.h>
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*str;
@@ -37,7 +36,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	i = 0;
 	j = ft_strlen(s1) - 1;
 	while (ft_ischar(s1[i], set) && s1[i])
-		i++;	
+		i++;
 	while (ft_ischar(s1[j], set) && j > 0)
 		j--;
 	size = j - i + 1;
