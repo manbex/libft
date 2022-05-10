@@ -14,19 +14,21 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	slen;
-	size_t	dlen;
+	size_t	i;
+	size_t	j;
 
-	slen = ft_strlen(src);
-	dlen = ft_strlen(dst);
-	if (dlen >= size)
-		dlen = size;
-	else if ((dlen + slen) < size)
-		ft_memcpy((dst + dlen), src, (slen + 1));
+	i = ft_strlen(dst);
+	j = ft_strlen (src);
+	if (size < i)
+		j += size;
 	else
+		j += i;
+	while (*src && i < (size - 1) && size)
 	{
-		ft_memcpy((dst + dlen), src, (size - dlen - 1));
-		dst[size - 1] = 0;
+		dst[i] = *src++;
+		i++;
 	}
-	return (slen + dlen);
+	if (size >= ft_strlen(dst))
+		dst[i] = 0;
+	return (j);
 }
